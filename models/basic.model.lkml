@@ -1,37 +1,16 @@
-# Define the database connection to be used for this model.
+# Define the database connection for this model.
+
 connection: "formacion_analytics_2025_test"
 
-# include all the views
-include: "/views/**/*.view.lkml"
+# Include all view and explore files for the project.
+include: "/views/basic/*.view.lkml"
+include: "/explores/basic/*.explore"
 
-# Datagroups define a caching policy for an Explore. To learn more,
-# use the Quick Help panel on the right to see documentation.
-
-datagroup: ArquitecturaLookerAlicia_default_datagroup {
-  # sql_trigger: SELECT MAX(id) FROM etl_log;;
+# Define the default caching policy.
+datagroup: arquitectura_default_datagroup {
+  sql_trigger: SELECT MAX(updated_at) FROM etl_log;;
   max_cache_age: "1 hour"
 }
 
-persist_with: ArquitecturaLookerAlicia_default_datagroup
-
-# Explores allow you to join together different views (database tables) based on the
-# relationships between fields. By joining a view into an Explore, you make those
-# fields available to users for data analysis.
-# Explores should be purpose-built for specific use cases.
-
-# To see the Explore you’re building, navigate to the Explore menu and select an Explore under "ArquitecturaLookerAlicia"
-
-# To create more sophisticated Explores that involve multiple views, you can use the join parameter.
-# Typically, join parameters require that you define the join type, join relationship, and a sql_on clause.
-# Each joined view also needs to define a primary key.
-
-explore: categoria {}
-
-explore: fecha {}
-
-explore: pais {}
-
-explore: tipo_tarjeta {}
-
-explore: ventas {}
-
+# Persist cache for all Explores in this model.
+persist_with: arquitectura_default_datagroup

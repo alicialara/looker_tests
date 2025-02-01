@@ -49,3 +49,35 @@ To learn more about LookML and how to develop visit:
 - [Looker User Guide](https://looker.com/guide)
 - [Looker Help Center](https://help.looker.com)
 - [Looker University](https://training.looker.com/)
+
+
+1. views/base
+Propósito: Esta carpeta generalmente se utiliza para definir vistas fundamentales o "base" que representan tablas directamente de la base de datos. Estas vistas no suelen tener muchas transformaciones o lógica adicional. Sirven como el punto de partida para construir otras vistas o Explores.
+
+Uso típico:
+
+Representación directa de las tablas en tu base de datos.
+Contienen las dimensiones básicas y medidas directamente relacionadas con las columnas de las tablas.
+Suelen ser reutilizadas en otras vistas o Explores mediante joins.
+
+2. views/basic
+Propósito: Esta carpeta se utiliza para vistas más específicas o derivadas que agregan lógica adicional sobre las vistas base. Aquí puedes incluir cálculos, transformaciones, filtros predefinidos o combinaciones de varias vistas base. Estas vistas son más orientadas a un caso de uso específico.
+
+Uso típico:
+
+Extensión de las vistas base para incluir métricas calculadas o medidas específicas.
+Vistas que no representan una tabla directa, sino una combinación o transformación lógica de las tablas base.
+Pueden incluir dimensiones y medidas personalizadas que tienen sentido para un análisis específico.
+
+¿Por qué separar base y basic?
+Claridad y Mantenimiento:
+
+Tener vistas base permite un punto de referencia claro para las tablas de origen, lo que facilita mantener sincronización con la base de datos.
+Las vistas basic pueden ser más complejas, pero al separarlas se evita que la lógica compleja se mezcle con la definición base.
+Reutilización:
+
+Las vistas base pueden ser reutilizadas en varios casos de uso sin duplicar definiciones.
+Las vistas basic permiten adaptar lógica a casos específicos sin modificar las vistas base.
+Escalabilidad:
+
+Este enfoque hace que tu proyecto sea más escalable, ya que puedes agregar lógica compleja en basic sin afectar las definiciones básicas en base.

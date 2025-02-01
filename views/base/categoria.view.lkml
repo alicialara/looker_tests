@@ -21,6 +21,7 @@ view: categoria {
     type: string
     sql: ${TABLE}.desc_categoria ;;
   }
+
   measure: count {
     type: count
     drill_fields: [id_categoria]
