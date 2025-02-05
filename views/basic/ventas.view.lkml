@@ -4,6 +4,12 @@ view: +ventas {
   # Extensión de la vista base "ventas"
   # Aquí puedes añadir dimensiones y medidas adicionales para enriquecer los análisis.
 
+  dimension: id_categoria {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.id_categoria ;;
+  }
+
   # Nueva dimensión: Año derivado de la fecha (si hay un campo de fecha relacionado)
   dimension: venta_year {
     type: number
