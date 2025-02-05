@@ -10,18 +10,6 @@ view: +ventas {
     sql: ${TABLE}.id_categoria ;;
   }
 
-  dimension: id_categoria_2 {
-    type: number
-    hidden: yes
-    sql: ${TABLE}.id_categoria ;;
-  }
-
-  dimension: id_categoria_3 {
-    type: number
-    hidden: yes
-    sql: ${TABLE}.id_categoria ;;
-  }
-
   # Nueva dimensión: Año derivado de la fecha (si hay un campo de fecha relacionado)
   dimension: venta_year {
     type: number
