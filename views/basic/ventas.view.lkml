@@ -1,30 +1,14 @@
-include: "/views/base/ventas.view"
+include: "/views/base/*.view"
+include: "/views/shared/*.view"
 
 view: +ventas {
+
+  extends: [pop]
+
   # Extensión de la vista base "ventas"
   # Aquí puedes añadir dimensiones y medidas adicionales para enriquecer los análisis.
 
   dimension: id_categoria {
-    type: number
-    hidden: yes
-    sql: ${TABLE}.id_categoria ;;
-  }
-
-  dimension: id_categoria3 {
-    type: number
-    sql: ${TABLE}.id_categoria ;;
-  }
-
-  dimension: id_categoria5 {
-    type: number
-    sql: ${TABLE}.id_categoria ;;
-  }
-
-  dimension: id_categoria6 {
-    type: number
-    sql: ${TABLE}.id_categoria ;;
-  }
-  dimension: id_categoria7 {
     type: number
     sql: ${TABLE}.id_categoria ;;
   }
@@ -36,6 +20,7 @@ view: +ventas {
     sql: EXTRACT(YEAR FROM ${id_fecha}) ;;
     description: "Año derivado del campo ID Fecha."
   }
+
 
   # Nueva medida: Ingresos totales
   measure: total_sales {
@@ -69,6 +54,42 @@ view: +ventas {
     description: "Clasificación de las ventas según el monto (Bajas, Medias, Altas)."
   }
 
-  # Ejemplo de filtro global (opcional): Solo ventas mayores a cero
-  # sql_always_where: ${ventas} > 0 ;;
+# Esto se puede hacer más elegante, pero me llevo fatal con sql server y chico, me he cansado de hacer debug. Lo suyo sería algo tipo fecha.fecha o fecha.fecha_date no me acuerdo.
+  dimension_group: comparison_date {
+    type: time
+    hidden: yes
+    timeframes: [raw, date]
+    sql: (SELECT fecha FROM dbo.d_fecha WHERE id_fecha = ${TABLE}.id_fecha) ;;
+    description: "Fecha para cálculos PoP"
+  }
+
+
+  # Medidas para comparación de períodos
+  measure: ventas_current_period {
+    group_label: "@{current_measures}"
+    label: "Total ventas (periodo actual)"
+    type: sum
+    sql:
+      CASE
+        WHEN ${fecha.fecha_date} >= ${filter_start_date_date}
+        AND ${fecha.fecha_date} < ${filter_end_date_date}
+        THEN ${ventas}
+        ELSE NULL
+      END ;;
+    value_format_name: decimal_0
+  }
+
+  measure: ventas_previous_period {
+    group_label: "@{prev_year_measures}"
+    label: "Total ventas (período anterior)"
+    type: sum
+    sql:
+      CASE
+        WHEN ${fecha.fecha_date} >= ${previous_start_date}
+        AND ${fecha.fecha_date} < ${filter_start_date_date}
+        THEN ${ventas}
+        ELSE NULL
+      END ;;
+    value_format_name: decimal_0
+  }
 }

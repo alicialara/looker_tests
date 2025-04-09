@@ -1,5 +1,5 @@
 include: "/views/basic/*.view"
-
+include: "/views/shared/*.view"
 
 explore: ventas {
   # Etiqueta amigable para este Explore
@@ -19,9 +19,9 @@ explore: ventas {
   }
 
   join: fecha {
+    sql_on: ${ventas.id_fecha} = ${fecha.id_fecha} ;;
     relationship: many_to_one
     type: left_outer
-    sql_on: ${ventas.id_fecha} = ${fecha.id_fecha} ;;
   }
 
   join: pais {
@@ -34,6 +34,14 @@ explore: ventas {
     relationship: many_to_one
     type: left_outer
     sql_on: ${ventas.id_tipo_tarjeta} = ${tipo_tarjeta.id_tipo_tarjeta} ;;
+  }
+
+  join: pop_parameters {
+
+    view_label: "_PoP"
+    sql:  ;;
+    type: full_outer
+    relationship: one_to_one
   }
 
   # Filtro SQL global opcional

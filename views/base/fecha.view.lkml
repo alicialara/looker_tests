@@ -56,6 +56,10 @@ view: fecha {
     type: number
     sql: ${TABLE}.mes ;;
   }
+
+
+
+
   measure: count {
     type: count
     drill_fields: [id_fecha]

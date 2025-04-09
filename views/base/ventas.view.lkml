@@ -40,4 +40,20 @@ view: ventas {
     type: count
     drill_fields: [id_fecha]
   }
+
+  measure: ventas_test2 {
+    type: sum
+    sql: ${TABLE}.ventas ;;
+  }
+
+  measure: ventas_total_paises {
+    type: number
+    sql: SUM(${ventas_test2}) OVER () ;;
+  }
+
+
+  measure: ventas_categoria {
+    type: number
+    sql: SUM(${ventas_test2}) OVER (PARTITION BY ${TABLE}.id_categoria) ;;
+  }
 }
