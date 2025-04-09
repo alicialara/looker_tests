@@ -57,12 +57,7 @@ view: fecha {
     sql: ${TABLE}.mes ;;
   }
 
-  dimension_group: comparison_date {
-    type: time
-    timeframes: [raw, date]
-    sql: ${TABLE}.fecha ;;
-    description: "Fecha de comparación directamente desde la tabla"
-  }
+
 
 
   measure: count {

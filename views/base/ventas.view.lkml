@@ -56,14 +56,4 @@ view: ventas {
     type: number
     sql: SUM(${ventas_test2}) OVER (PARTITION BY ${TABLE}.id_categoria) ;;
   }
-
-
-
-# Por esto:
-  dimension_group: comparison_date {
-    type: time
-    timeframes: [raw, date]
-    sql: (SELECT fecha FROM dbo.d_fecha WHERE id_fecha = ${TABLE}.id_fecha) ;;
-    description: "Fecha para cálculos PoP"
-  }
 }

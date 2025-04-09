@@ -101,12 +101,6 @@ view: pop {
     }
   }
 
-  dimension_group: comparison_date {
-    type: time
-    timeframes: [raw, date]
-    sql: ${comparison_date_raw};;
-    description: "Fecha para cálculos PoP"
-  }
 
   ## For filtered measures
   dimension: is_current_period {
