@@ -56,6 +56,15 @@ view: fecha {
     type: number
     sql: ${TABLE}.mes ;;
   }
+
+  dimension_group: comparison_date {
+    type: time
+    timeframes: [raw, date]
+    sql: ${TABLE}.fecha ;;
+    description: "Fecha de comparación directamente desde la tabla"
+  }
+
+
   measure: count {
     type: count
     drill_fields: [id_fecha]
